@@ -503,6 +503,15 @@ class ApplicationTest extends \Stormpath\Tests\BaseTest {
         $application->save();
     }
 
+    public function testResendVerificationEmail()
+    {
+        $application = self::$application;
+
+        $response = $application->resendVerificationEmail();
+
+        $this->assertContains('202', $response);
+    }
+
     public function testAddingCustomData()
     {
         $cd = self::$application->customData;

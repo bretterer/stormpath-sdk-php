@@ -80,6 +80,7 @@ class DefaultDataStore extends Cacheable implements InternalDataStore
      */
     public function instantiate($className, \stdClass $properties = null, array $options = array())
     {
+
         $propertiesArr = array($properties, $options);
 
         $resource = $this->resourceFactory->instantiate($className, $propertiesArr);
@@ -159,7 +160,6 @@ class DefaultDataStore extends Cacheable implements InternalDataStore
         $returnType = $returnType ? $returnType : get_class($resource);
 
         $returnedResource = $this->saveResource($href, $resource, $returnType);
-
 
 
         //ensure the caller's argument is updated with what is returned from the server:
@@ -259,7 +259,7 @@ class DefaultDataStore extends Cacheable implements InternalDataStore
         if($this->resourceIsCacheable($response)) {
             $this->addDataToCache($response, $query);
         }
-
+        
         return $this->resourceFactory->instantiate($returnType, array($response, $query));
     }
 

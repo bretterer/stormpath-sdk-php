@@ -35,10 +35,12 @@ class Resource extends Magic
 
     public function __construct(InternalDataStore $dataStore = null, \stdClass $properties = null, array $options = array())
     {
+
         parent::__construct();
         $this->dataStore = $dataStore;
         $this->setProperties($properties);
         $this->options = $options;
+
     }
 
     public function setProperties(\stdClass $properties = null)

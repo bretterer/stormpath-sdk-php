@@ -53,6 +53,7 @@ class Stormpath
     const GROUP_MEMBERSHIP_LIST         = 'GroupMembershipList';
     const PASSWORD_RESET_TOKEN          = 'PasswordResetToken';
     const TENANT                        = 'Tenant';
+    const VERIFICATION_EMAILS           = 'VerificationEmails';
 
     const ENABLED                       = 'ENABLED';
     const DISABLED                      = 'DISABLED';

@@ -37,6 +37,7 @@ class Application extends InstanceResource implements Deletable
     const TENANT                        = "tenant";
     const ACCOUNTS                      = "accounts";
     const PASSWORD_RESET_TOKENS         = "passwordResetTokens";
+    const EMAIL_VERIFICATION_TOKEN      = "emailVerificationToken";
     const DEFAULT_ACCOUNT_STORE_MAPPING = "defaultAccountStoreMapping";
     const DEFAULT_GROUP_STORE_MAPPING   = "defaultGroupStoreMapping";
     const GROUPS                        = "groups";
@@ -198,6 +199,23 @@ class Application extends InstanceResource implements Deletable
 
         return $passwordResetToken->getAccount();
     }
+
+    // @codeCoverageIgnoreStart
+    public function resendVerificationEmail($accountUsernameOrEmail)
+    {
+
+        $href = $this->href . "/verificationEmails";
+
+        $verificationProperties = new \stdClass();
+        $hrefName = Resource::HREF_PROP_NAME;
+        $verificationProperties->$hrefName = $href;
+        $verificationProperties->login = $accountUsernameOrEmail;
+
+        $evToken = $this->getDataStore()->instantiate(Stormpath::VERIFICATION_EMAILS, $verificationProperties);
+
+        return $this->getDataStore()->save($evToken, Stormpath::APPLICATION);
+    }
+    // @codeCoverageIgnoreEnd
 
     /**
      * Verifies a password reset token in a user-clicked link within an email.
@@ -400,6 +418,8 @@ class Application extends InstanceResource implements Deletable
 
         return $this->getDataStore()->create($href, $passwordResetToken, Stormpath::PASSWORD_RESET_TOKEN, $options);
     }
+
+
 
     // @codeCoverageIgnoreStart
     private function getPasswordResetTokensHref()
