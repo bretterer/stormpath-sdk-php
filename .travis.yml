@@ -18,11 +18,13 @@ before_script:
 
 install:
  - composer require satooshi/php-coveralls:~0.6@stable
- - wget https://gist.githubusercontent.com/bretterer/2ce85f60282e83937ed0/raw/buildApiDocs.sh
- - chmod 755 buildApiDocs.sh && ./buildApiDocs.sh
 
 script:
   - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+
+after_script:
+  - wget https://gist.githubusercontent.com/bretterer/2ce85f60282e83937ed0/raw/buildApiDocs.sh
+  - chmod 755 buildApiDocs.sh && ./buildApiDocs.sh
 
 after_success:
   - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then php vendor/bin/coveralls -v; fi;'
